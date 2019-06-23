@@ -1,0 +1,3 @@
+makefile improvements
+  simple targets: reload repos meta, reload repos, etc.
+  make each target have proper dependencies
