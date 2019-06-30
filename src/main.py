@@ -1,5 +1,8 @@
 import code
+import json
+import subprocess
 import os
+import time
 
 import requests
 
@@ -12,6 +15,8 @@ DEBUG = os.getenv('DEBUG') == 'true'
 
 g = Github(os.getenv('GITHUB_TOKEN'))
 
+def run_shell_command(*args):
+    subprocess.run(args)
 
 def get_python_repos():
     repositories = g.search_repositories(query='language:python')
@@ -21,18 +26,33 @@ def get_python_repos():
 
     for repo in repositories:
         print(repo)
+        yield repo
 
-    # TODO: save to an index file
 
-# TODO: fetch each git repo
+def fetch(repo):
+    pass
+
+def save_meta(repo):
+    pass
 
 def main():
     print('Hello world!')
     res = requests.get('https://api.github.com/zen')
     print(res.text)
+    c = 0
+    MAX = 999999
+    begin = time.time()
 
-    get_python_repos()
+    with open("urls.json", "a") as f:
+        for repo in get_python_repos():
+            f.write(json.dumps(repo.raw_data))
+            f.write("\n")
+            c += 1
+            if c > MAX:
+                break
 
+    delta = time.time() - begin
+    print(f'done time: {delta} count: {c}')
 
 if __name__ == '__main__':
     main()
