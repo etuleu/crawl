@@ -28,17 +28,18 @@ def get_python_repos():
         print(repo)
         yield repo
 
-
 def fetch(repo):
-    pass
+    path = f'repos/{repo["full_name"]}'
+    run_shell_command("git", "clone", repo["clone_url"], path)
 
-def save_meta(repo):
-    pass
+def clone_repos():
+    with open("urls.json", "r") as f:
+        for i, line in enumerate(f):
+            repo = json.loads(line)
+            print(i, repo)
+            fetch(repo)
 
-def main():
-    print('Hello world!')
-    res = requests.get('https://api.github.com/zen')
-    print(res.text)
+def fetch_urls():
     c = 0
     MAX = 999999
     begin = time.time()
@@ -53,6 +54,16 @@ def main():
 
     delta = time.time() - begin
     print(f'done time: {delta} count: {c}')
+
+def main():
+    print('Hello world!')
+    res = requests.get('https://api.github.com/zen')
+    print(res.text)
+    
+    fetch_urls()
+
+    clone_repos()
+
 
 if __name__ == '__main__':
     main()
