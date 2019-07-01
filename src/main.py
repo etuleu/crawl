@@ -30,7 +30,7 @@ def get_python_repos():
 
 def fetch(repo):
     path = f'repos/{repo["full_name"]}'
-    run_shell_command("git", "clone", repo["clone_url"], path)
+    run_shell_command("git", "clone", "--depth", "1", repo["clone_url"], path)
 
 def clone_repos():
     with open("urls.json", "r") as f:
@@ -41,7 +41,7 @@ def clone_repos():
 
 def fetch_urls():
     c = 0
-    MAX = 999999
+    MAX = 9
     begin = time.time()
 
     with open("urls.json", "a") as f:
