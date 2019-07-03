@@ -1,9 +1,9 @@
 
 docker-build:
-	docker build -t simple-python-docker .
+	docker build -t crawl-image .
 
 docker-run:	docker-build
-	docker run simple-python-docker
+	docker run crawl-image
 
 build:
 	pipenv install
