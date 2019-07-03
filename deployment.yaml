@@ -1,0 +1,24 @@
+# This file configures the hello-world app which serves public web traffic.
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: crawl-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: crawl-app
+  template:
+    metadata:
+      labels:
+        app: crawl-app
+    spec:
+      containers:
+      - name: crawl-container
+        image: gcr.io/ev-crawl/crawl-image:latest
+        # This app listens on port 8080 for web traffic by default.
+        ports:
+        - containerPort: 8080
+        env:
+          - name: PORT
+            value: "8080"
