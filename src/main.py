@@ -29,22 +29,26 @@ def get_python_repos():
         yield repo
 
 def fetch(repo):
-    path = f'repos/{repo["full_name"]}'
+    path = f'/mnt/data/repos/{repo["full_name"]}'
     run_shell_command("git", "clone", "--depth", "1", repo["clone_url"], path)
 
 def clone_repos():
-    with open("urls.json", "r") as f:
+    with open("/mnt/data/urls.json", "r") as f:
         for i, line in enumerate(f):
             repo = json.loads(line)
             print(i, repo)
             fetch(repo)
 
 def fetch_urls():
+print('Hello world!')
+    res = requests.get('https://api.github.com/zen')
+    print(res.text)
+    print("fetching urls")
     c = 0
     MAX = 9
     begin = time.time()
 
-    with open("urls.json", "a") as f:
+    with open("/mnt/data/urls.json", "a") as f:
         for repo in get_python_repos():
             f.write(json.dumps(repo.raw_data))
             f.write("\n")
@@ -56,12 +60,7 @@ def fetch_urls():
     print(f'done time: {delta} count: {c}')
 
 def main():
-    print('Hello world!')
-    res = requests.get('https://api.github.com/zen')
-    print(res.text)
-    
     fetch_urls()
-
     clone_repos()
 
 
