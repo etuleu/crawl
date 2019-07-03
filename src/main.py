@@ -40,9 +40,6 @@ def clone_repos():
             fetch(repo)
 
 def fetch_urls():
-print('Hello world!')
-    res = requests.get('https://api.github.com/zen')
-    print(res.text)
     print("fetching urls")
     c = 0
     MAX = 9
@@ -60,6 +57,10 @@ print('Hello world!')
     print(f'done time: {delta} count: {c}')
 
 def main():
+    print('Hello world!')
+    res = requests.get('https://api.github.com/zen')
+    print(res.text)
+
     fetch_urls()
     clone_repos()
 
