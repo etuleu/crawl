@@ -16,9 +16,11 @@ spec:
       containers:
       - name: crawl-container
         image: gcr.io/ev-crawl/crawl-image:latest
-        # This app listens on port 8080 for web traffic by default.
-        ports:
-        - containerPort: 8080
-        env:
-          - name: PORT
-            value: "8080"
+        volumeMounts:
+        - mountPath: /mnt/fileserver
+          name: fileserver
+      volumes:
+      - name: fileserver
+        persistentVolumeClaim:
+          claimName: fileserver-claim
+          readOnly: false

@@ -29,11 +29,11 @@ def get_python_repos():
         yield repo
 
 def fetch(repo):
-    path = f'/mnt/data/repos/{repo["full_name"]}'
+    path = f'/mnt/fileserver/repos/{repo["full_name"]}'
     run_shell_command("git", "clone", "--depth", "1", repo["clone_url"], path)
 
 def clone_repos():
-    with open("/mnt/data/urls.json", "r") as f:
+    with open("/mnt/fileserver/urls.json", "r") as f:
         for i, line in enumerate(f):
             repo = json.loads(line)
             print(i, repo)
@@ -45,7 +45,7 @@ def fetch_urls():
     MAX = 9
     begin = time.time()
 
-    with open("/mnt/data/urls.json", "a") as f:
+    with open("/mnt/fileserver/urls.json", "a") as f:
         for repo in get_python_repos():
             f.write(json.dumps(repo.raw_data))
             f.write("\n")
