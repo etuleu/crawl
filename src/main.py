@@ -66,6 +66,8 @@ def main():
     fetch_urls()
     clone_repos()
 
+    print('done! going to sleep')
+    time.sleep(5 * 60 * 60)
 
 if __name__ == '__main__':
     main()
