@@ -18,9 +18,16 @@ spec:
         image: gcr.io/ev-crawl/crawl-image:latest
         volumeMounts:
         - mountPath: /mnt/fileserver
-          name: fileserver
+          name: fileserver2
+        env:
+          - name: GITHUB_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: credentials
+                key: GITHUB_TOKEN
+
       volumes:
-      - name: fileserver
+      - name: fileserver2
         persistentVolumeClaim:
-          claimName: fileserver-claim
+          claimName: fileserver2-claim
           readOnly: false
