@@ -25,7 +25,6 @@ spec:
               secretKeyRef:
                 name: credentials
                 key: GITHUB_TOKEN
-      restartPolicy: Never
       volumes:
       - name: fileserver2
         persistentVolumeClaim:
