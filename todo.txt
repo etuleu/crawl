@@ -1,3 +1,6 @@
+get more languages
+  lisp, haskell, java, typescript
+
 split url fetcher and git cloner
 
 makefile improvements
