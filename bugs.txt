@@ -1,0 +1,2 @@
+if the repo already exists the clone command fails
+  maybe instead we should do a git update in that dir
